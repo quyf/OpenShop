@@ -1,7 +1,7 @@
-#JShop
+#OpenShop
 ---
 
-JShop是Jeeshop的分支版本，与Jeeshop最大的区别在于技术选型上的差异：
+OpenShop是Jeeshop的分支版本，与Jeeshop最大的区别在于技术选型上的差异：
 
 1. 使用spring mvc替换strutus2
 2. 使用freemarker替换jsp
@@ -9,8 +9,8 @@ JShop是Jeeshop的分支版本，与Jeeshop最大的区别在于技术选型上�
 4. 将免费进行得更彻底：使用[jquery-treegrid](http://maxazan.github.io/jquery-treegrid/)([下载](https://github.com/maxazan/jquery-treegrid))替换easyui(因为easyui是GPL协议)
 5. 更加紧密地拥抱bootstrap:后台管理界面使用[startbootstrap admin2](http://ironsummitmedia.github.io/startbootstrap-sb-admin-2/pages/index.html)([下载](https://github.com/IronSummitMedia/startbootstrap-sb-admin-2))
 
-## JShop技术选型
-JShop&Jeeshop的技术选型如下:
+## OpenShop技术选型
+OpenShop&Jeeshop的技术选型如下:
 ### 后端技术
 * 核心框架: Spring Framework
 * 数据库访问: Mybatis
@@ -41,16 +41,9 @@ JShop&Jeeshop的技术选型如下:
 ##change log
 http://git.oschina.net/dinguangx/jshop/blob/master/changelog.md
 
-##技术交流
-QQ群：417059832
-####开发团队:
-* Dylan: dinguangx@163.com 270705821
-* lizm: 736578498
-* 庄周梦蝶:735422529
 
-
-##JShop版权声明
-JShop是在Jeeshop的基础上进行技术框架变更，以及业务功能完善，开源协议沿用jeeshop的LGPL协议，请大家在学习和试用时，遵循LGPL协议规范，并请尊重jeeshop原作者的劳动成果！
+##OpenShop版权声明
+OpenShop是在Jeeshop的基础上进行技术框架变更，以及业务功能完善，开源协议沿用jeeshop的LGPL协议，请大家在学习和试用时，遵循LGPL协议规范，并请尊重jeeshop原作者的劳动成果！
 
 
 
