@@ -12,42 +12,31 @@ import java.net.URLEncoder;
 import java.text.MessageFormat;
 
 public class MapUtil {
-	private static  String OUTPUT = null;
-	private static  String SENSOR = null;
-	private static  String KEY = null;
+	
+	private static String OUTPUT = null;
+	private static String SENSOR = null;
+	private static String KEY = null;
 
 	public static void getCoordinate(String addr) {
 		String addrs = "";
 		String address = null;
 		try {
 			address = java.net.URLEncoder.encode(addr, "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
-		;
-		String output = "csv";
-		String key = "abc";
-		String url = String.format(
-				"http://maps.google.com/maps/geo?q=%s&output=%s&key=%s",
-				address, output, key);
-		URL myURL = null;
-		URLConnection httpsConn = null;
-		// 进行转码
-		try {
+			String output = "csv";
+			String key = "abc";
+			String url = String.format(
+					"http://maps.google.com/maps/geo?q=%s&output=%s&key=%s",
+					address, output, key);
+			URL myURL = null;
+			URLConnection httpsConn = null;
+			// 进行转码
 			myURL = new URL(url);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			httpsConn = (URLConnection) myURL.openConnection();
 			if (httpsConn != null) {
-				InputStreamReader insr = new InputStreamReader(
-						httpsConn.getInputStream(), "UTF-8");
+				InputStreamReader insr = new InputStreamReader(httpsConn.getInputStream(), "UTF-8");
 				BufferedReader br = new BufferedReader(insr);
 				String data = null;
 				if ((data = br.readLine()) != null) {
-					System.out.println(data);
 					String[] retList = data.split(",");
 					if (retList.length > 2 && ("200".equals(retList[0]))) {
 						addrs = retList[2];
@@ -63,7 +52,8 @@ public class MapUtil {
 		}
 		System.out.println(addrs);
 	}
-//	http://maps.googleapis.com/maps/api/js/GeocodeService.Search?4s%E4%B8%8A%E6%B5%B7&7sUS&9szh-CN&callback=_xdc_._eum1kj&token=12256
+
+	// http://maps.googleapis.com/maps/api/js/GeocodeService.Search?4s%E4%B8%8A%E6%B5%B7&7sUS&9szh-CN&callback=_xdc_._eum1kj&token=12256
 	/**
 	 * 利用googlemap api 通过 HTTP 进行地址解析
 	 * 
@@ -71,16 +61,17 @@ public class MapUtil {
 	 *            地址
 	 * @return HTTP状态代码,精确度（请参见精确度常数）,纬度,经度
 	 */
-	private static  String getLatlng(String address) {
+	@SuppressWarnings("static-access")
+	private static String getLatlng(String address) {
 		String ret = "";
 		if (address != null && !address.equals("")) {
 			try {
 				address = URLEncoder.encode(address, "UTF-8");// 进行这一步是为了避免乱码
 			} catch (UnsupportedEncodingException e1) {
 				e1.printStackTrace();
-//				logger.error("转码失败", e1);
+				// logger.error("转码失败", e1);
 			}
-			String[] arr = new String[4];
+			Object[] arr = new Object[4];
 			arr[0] = address;
 			arr[1] = OUTPUT;
 			arr[2] = SENSOR;
@@ -104,10 +95,12 @@ public class MapUtil {
 					sb.append(s + "\r\n");
 				}
 				ret = "" + sb;
-			} catch (MalformedURLException e) {e.printStackTrace();
-//				logger.error("通过http方式获取地址信息失败", e);
-			} catch (IOException e) {e.printStackTrace();
-//				logger.error("文件读取失败", e);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+				// logger.error("通过http方式获取地址信息失败", e);
+			} catch (IOException e) {
+				e.printStackTrace();
+				// logger.error("文件读取失败", e);
 			}
 		}
 		return ret;
@@ -115,6 +108,6 @@ public class MapUtil {
 
 	public static void main(String[] args) {
 		getCoordinate("上海市长寿路站");
-//		getLatlng("上海市长寿路站");
+		getLatlng("上海市长寿路站");
 	}
 }

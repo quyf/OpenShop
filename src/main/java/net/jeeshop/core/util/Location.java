@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Location implements Serializable{
 
+	private static final long serialVersionUID = -789390619176048552L;
+	
 	Double lat;//纬度值
 	Double lng;//经度值
 
@@ -25,7 +27,6 @@ public class Location implements Serializable{
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return "lat:" + lat + ",lng:" + lng;
 	}
 

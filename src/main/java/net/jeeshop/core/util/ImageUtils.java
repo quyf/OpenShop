@@ -27,6 +27,7 @@ import com.sun.image.codec.jpeg.JPEGCodec;
  * @author huangf
  *
  */
+@SuppressWarnings("restriction")
 public class ImageUtils {
 	private static final Logger logger = LoggerFactory.getLogger(ImageUtils.class);
 	// ===源图片路径名称如:c:\1.jpg
@@ -133,7 +134,7 @@ public class ImageUtils {
 	/*
      * Java文件操作 获取文件扩展名
      */
-    private static String getExtensionName(String filename) { 
+    public static String getExtensionName(String filename) { 
         if ((filename != null) && (filename.length() > 0)) { 
             int dot = filename.lastIndexOf('.'); 
             if ((dot >-1) && (dot < (filename.length() - 1))) { 
@@ -226,7 +227,7 @@ public class ImageUtils {
 //	        tag.getGraphics().drawImage(src.getScaledInstance(widthdist, heightdist,  Image.SCALE_AREA_AVERAGING), 0, 0,  null);      
 	              
 	        FileOutputStream out = new FileOutputStream(imgdist);      
-	        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);      
+			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);      
 	        encoder.encode(tag);      
 	        out.close();      
 	     

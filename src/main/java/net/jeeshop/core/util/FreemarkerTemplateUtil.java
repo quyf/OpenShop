@@ -34,7 +34,7 @@ public class FreemarkerTemplateUtil {
 	public static void main(String[] args) throws IOException, TemplateException {  
 //		String template = "你好${姓名!'未知'}，今天是${date?string('yyyy-MM-dd')}"; //变量参考freemarker语法  
 	    String template = "你好${username}，今天是${date}"; //变量参考freemarker语法  
-	    Map m = new HashMap();  
+	    Map<String,String> m = new HashMap<String,String>();  
 	    m.put("username", "管理员");
 	    m.put("date", "2012-10-12");
 //	    m.put("date", new Date());  

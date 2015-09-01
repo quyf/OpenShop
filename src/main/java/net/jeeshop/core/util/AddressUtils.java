@@ -42,8 +42,7 @@ public class AddressUtils {
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 */
-	public static String getAddresses(String content, String encodingString)
-			throws UnsupportedEncodingException {
+	public static String getAddresses(String content, String encodingString)throws UnsupportedEncodingException {
 		// 这里调用pconline的接口
 		String urlStr = "http://ip.taobao.com/service/getIpInfo.php";
 		// 从http://whois.pconline.com.cn取得IP所在的省市区信息
@@ -211,17 +210,10 @@ public class AddressUtils {
 	}
 
 	// 测试
-	public static void main(String[] args) {
-		AddressUtils addressUtils = new AddressUtils();
+	public static void main(String[] args) throws UnsupportedEncodingException {
 		// 测试ip 219.136.134.157 中国=华南=广东省=广州市=越秀区=电信
 		String ip = "183.93.113.25";
-		String address = "";
-		try {
-			address = addressUtils.getAddresses("ip=" + ip, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String address = AddressUtils.getAddresses("ip=" + ip, "utf-8");
 		System.out.println(address);
 		// 输出结果为：广东省,广州市,越秀区
 	}

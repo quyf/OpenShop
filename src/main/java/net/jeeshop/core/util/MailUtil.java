@@ -1,15 +1,15 @@
 package net.jeeshop.core.util;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
-import java.util.Vector;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -20,7 +20,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import net.jeeshop.core.front.SystemManager;
-import net.jeeshop.services.front.account.impl.AccountServiceImpl;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -52,7 +51,7 @@ public class MailUtil {
 	String filename = null;
 //	String subject = null;
 	// 用于保存发送附件的文件名的集合
-	Vector file = new Vector();
+	List<String> file = new ArrayList<String>();
 
 	// 做一个可以传发件人等参数的构造
 	public MailUtil(String to, String from,String password, String smtpServer, String subject) {
@@ -74,7 +73,7 @@ public class MailUtil {
 
 	// 该方法用于收集附件名
 	public void attachfile(String fname) {
-		file.addElement(fname);
+		file.add(fname);
 	}
 
 	// 开始发送信件的方法
@@ -118,12 +117,12 @@ public class MailUtil {
 			mp.addBodyPart(htmlBody);
 			
 			// 利用枚举器方便的遍历集合
-			Enumeration efile = file.elements();
+			Iterator<String> efile = file.iterator();
 			// 检查序列中是否还有更多的对象
-			while (efile.hasMoreElements()) {
+			while (efile.hasNext()) {
 				MimeBodyPart mbp = new MimeBodyPart();
 				// 选择出每一个附件名
-				filename = efile.nextElement().toString();
+				filename = efile.next().toString();
 				// 得到数据源
 				FileDataSource fds = new FileDataSource(filename);
 				// 得到附件本身并至入BodyPart
@@ -133,7 +132,7 @@ public class MailUtil {
 				mp.addBodyPart(mbp);
 			}
 			// 移走集合中的所有元素
-			file.removeAllElements();
+			file.clear();
 			// Multipart加入到信件
 			msg.setContent(mp);
 			// 设置信件头的发送日期

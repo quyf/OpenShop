@@ -1,12 +1,13 @@
 package net.jeeshop.core.util;
 
 import java.io.Serializable;
-import java.util.Map;
 
 //http://developer.baidu.com/map/webservice-geocoding.htm
 public class BaiduMapInfo implements Serializable {
-	private int status;
-	private Result result;
+	private static final long serialVersionUID = -7543113695889545864L;
+	
+	int status;
+	Result result;
 
 	public Result getResult() {
 		return result;

@@ -1,10 +1,6 @@
 package net.jeeshop.core.util;
 /**
  * 文件类，需要的时候，可以和数据库进行关联
- * 
- * @author MZ
- * 
- * @Time 2009-11-24下午04:29:31
  */
 public class UploadFiles {
 	private String uploadFileName;// 上传的文件名称
@@ -35,5 +31,4 @@ public class UploadFiles {
 	public void setUploadRealName(String uploadRealName) {
 		this.uploadRealName = uploadRealName;
 	}
-
 }

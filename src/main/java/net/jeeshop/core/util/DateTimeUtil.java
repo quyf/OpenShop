@@ -4,8 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.lang.time.DateUtils;
-
 public class DateTimeUtil {
 	public static void main(String[] args) throws Exception {
 		

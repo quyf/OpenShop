@@ -3,7 +3,9 @@ package net.jeeshop.core.util;
 import java.io.Serializable;
 
 public class Result implements Serializable{
-	public Location location;
+	private static final long serialVersionUID = 1835549484216723479L;
+	
+	Location location;
 	int precise;
 	int confidence;
 	String level;

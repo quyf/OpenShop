@@ -17,15 +17,22 @@ import sun.misc.BASE64Encoder;
  * @author huangf
  *
  */
+@SuppressWarnings("restriction")
 public class TokenUtil {
-	private static final Logger logger = LoggerFactory.getLogger(TokenUtil.class);
-	private static final TokenUtil instance = new TokenUtil();
+	
+	Logger logger = LoggerFactory.getLogger(TokenUtil.class);
+	
+	private static TokenUtil instance = new TokenUtil();
 	private Object checkTokenLock = new Object();
+	
 	private BASE64Encoder encoder = new BASE64Encoder();// base64编码
-	private TokenUtil() {
-	}
+	
+	private TokenUtil() {}
 
 	public static TokenUtil getInstance() {
+		if( null==instance ){
+			instance = new TokenUtil();
+		}
 		return instance;
 	}
 
@@ -38,7 +45,6 @@ public class TokenUtil {
 			MessageDigest md = MessageDigest.getInstance("md5");
 			byte[] md5 = md.digest(UUID.randomUUID().toString().getBytes());
 			String token = encoder.encode(md5);
-//			logger.error("tokenStr=" + token);
 			session.setAttribute("token", token);
 			return token;
 		} catch (NoSuchAlgorithmException e) {
@@ -54,8 +60,8 @@ public class TokenUtil {
 	 */
 	public boolean isTokenValid(HttpServletRequest request) {
 		synchronized (checkTokenLock) {
-			String client_token = request.getParameter("token");
-			if (client_token == null) {
+			String clientToken = request.getParameter("token");
+			if (clientToken == null) {
 				return false;
 			}
 			String server_token = (String) request.getSession().getAttribute("token");
@@ -64,7 +70,7 @@ public class TokenUtil {
 			if (server_token == null) {
 				return false;
 			}
-			if (!client_token.equals(server_token)) {
+			if (!clientToken.equals(server_token)) {
 				return false;
 			}
 			return true;

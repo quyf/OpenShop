@@ -10,12 +10,14 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 /**
  * http://www.webchinese.com.cn   此公司的SMS短信平台
- * @author jqsl2012@163.com
  *
  */
 public class SMSWebChinese {
 	public static void main(String[] args) throws HttpException, IOException {
-		sendSMS(null);
+		Sms s=new Sms();
+		s.setContent("hello");
+		s.setPhone("xxx");
+		sendSMS(s);
 	}
 
 	public static void sendSMS(Sms sms) throws IOException, HttpException,
@@ -37,8 +39,7 @@ public class SMSWebChinese {
 		for (Header h : headers) {
 			System.out.println("h.toString()="+h.toString());
 		}
-		String returnCode = new String(post.getResponseBodyAsString().getBytes(
-				"gbk"));
+		String returnCode = new String(post.getResponseBodyAsString().getBytes("gbk"));
 		System.out.println("result="+returnCode);
 
 		post.releaseConnection();

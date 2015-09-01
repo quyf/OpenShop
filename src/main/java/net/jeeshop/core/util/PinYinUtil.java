@@ -6,7 +6,13 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+
+/**
+ * StringBuilder 非线程安全 StringBuffer 线程安全
+ * @author quyf
+ */
 public class PinYinUtil {
+
 	/**
 	 * 将字符串中的中文转化为拼音,其他字符不变
 	 * 
@@ -20,53 +26,56 @@ public class PinYinUtil {
 		format.setVCharType(HanyuPinyinVCharType.WITH_V);
 
 		char[] input = inputString.trim().toCharArray();
-		String output = "";
+		StringBuilder output = new StringBuilder();
 
 		try {
 			for (int i = 0; i < input.length; i++) {
-				if (java.lang.Character.toString(input[i]).matches("[\\u4E00-\\u9FA5]+")) {
+				if ( Character.toString(input[i]).matches("[\\u4E00-\\u9FA5]+")) {
 					String[] temp = PinyinHelper.toHanyuPinyinStringArray(input[i], format);
-					output += temp[0];
+					output.append(temp[0]);
 				} else
-					output += java.lang.Character.toString(input[i]);
+					output.append(Character.toString(input[i]));
 			}
 		} catch (BadHanyuPinyinOutputFormatCombination e) {
 			e.printStackTrace();
 		}
-		return output;
+		return output.toString();
 	}
-	/**  
-     * 获取汉字串拼音首字母，英文字符不变  
-     * @param chinese 汉字串  
-     * @return 汉语拼音首字母  
-     */   
-    public static String getFirstSpell(String chinese) {   
-            StringBuffer pybf = new StringBuffer();   
-            char[] arr = chinese.toCharArray();   
-            HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();   
-            defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);   
-            defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);   
-            for (int i = 0; i < arr.length; i++) {   
-                    if (arr[i] > 128) {   
-                            try {   
-                                    String[] temp = PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat);   
-                                    if (temp != null) {   
-                                            pybf.append(temp[0].charAt(0));   
-                                    }   
-                            } catch (BadHanyuPinyinOutputFormatCombination e) {   
-                                    e.printStackTrace();   
-                            }   
-                    } else {   
-                            pybf.append(arr[i]);   
-                    }   
-            }   
-            return pybf.toString().replaceAll("\\W", "").trim();   
-    }   
-    
-    public static void main(String[] args) {
-    	String chs = "我是中国人! I'm Chinese!";
-    	System.out.println(chs);
-    	System.out.println(getPingYin(chs));
-        System.out.println(getFirstSpell(chs));
-    }
+
+	/**
+	 * 获取汉字串拼音首字母，英文字符不变
+	 * 
+	 * @param chinese
+	 *            汉字串
+	 * @return 汉语拼音首字母
+	 */
+	public static String getFirstSpell(String chinese) {
+		StringBuffer pybf = new StringBuffer();
+		char[] arr = chinese.toCharArray();
+		HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
+		defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+		defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] > 128) {
+				try {
+					String[] temp = PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat);
+					if (temp != null) {
+						pybf.append(temp[0].charAt(0));
+					}
+				} catch (BadHanyuPinyinOutputFormatCombination e) {
+					e.printStackTrace();
+				}
+			} else {
+				pybf.append(arr[i]);
+			}
+		}
+		return pybf.toString().replaceAll("\\W", "").trim();
+	}
+
+	public static void main(String[] args) {
+		String chs = "我是s中国人! I'm Chinese!";
+		System.out.println(chs);
+		System.out.println(getPingYin(chs));
+		System.out.println(getFirstSpell(chs));
+	}
 }
